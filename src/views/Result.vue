@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <router-view />
+  <h1>Result</h1>
 </template>
 
 <style></style>
