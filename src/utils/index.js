@@ -1,0 +1,1 @@
+export const Base_URL = "https://api-noroff.herokuapp.com/trivia"
