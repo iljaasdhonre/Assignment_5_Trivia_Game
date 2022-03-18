@@ -1,5 +1,6 @@
 //Dependencies
 import {createRouter, createWebHistory} from 'vue-router'
+import Start from "../views/Start.vue"
 
 //Routes
 const routes = [
