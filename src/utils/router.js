@@ -6,17 +6,17 @@ const routes = [
     {
         name: 'start',
         path: '/',
-        component: () => import ("./views/Start.vue")
+        component: () => import ("../views/Start.vue")
     },
     {
         name: 'questions',
         path: '/questions',
-        component: () => import ("./views/Questions.vue")
+        component: () => import ("../views/Questions.vue")
     },
     {
         name: 'result',
         path: '/result',
-        component: () => import ("./views/Result.vue")
+        component: () => import ("../views/Result.vue")
     }
 ]
 
