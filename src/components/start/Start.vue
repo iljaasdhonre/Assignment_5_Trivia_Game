@@ -1,29 +1,107 @@
 <script setup>
-import { getCategories } from "../../utils/user-api";
+import { checkUserName } from "../../utils/user-api";
 import { ref } from "vue";
 import { onBeforeMount } from "@vue/runtime-core";
+import { getCategories } from "../../utils/questions-api";
 
-const apiUrl = "https://opentdb.com/api_category.php";
 let categoriesList = ref([]);
-let category = ref("");
+const username = ref("");
+const numberOfQuestions = ref("");
+const difficulty = ref("");
+const category = ref("");
 
 onBeforeMount(() => {
-  getCategories()
-    .then((categories) => (categoriesList.value = categories))
-    .then(console.log(categoriesList));
+  getCategories().then((categories) => (categoriesList.value = categories));
 });
+
+const submitUser = async () => {
+  await checkUserName(username.value);
+};
 </script>
 
 <template>
-  <h1>Start</h1>
+  <main class="container mx-auto">
+    <h1 class="mb-3 mt-3 text-2xl">Welcome to the Trivia Game</h1>
 
-  <select placeholder="Select a category" v-model="category">
-    <option value="No category selected" disabled selected>Select your category</option>
-    <option v-for="category in categoriesList" :key="category.id" value="category.name">
-      {{ category.name }}
-    </option>
-    <p>{{ category }}</p>
-  </select>
+    <form>
+      <!-- username field -->
+      <fieldset class="mb-3">
+        <legend>Username</legend>
+        <input
+          type="text"
+          id="username"
+          placeholder=" E.g. Mr_Dhonre "
+          class="m-1 border border-cyan-600 rounded"
+          v-model="username"
+        />
+      </fieldset>
+
+      <!-- category field -->
+      <fieldset class="mb-5">
+        <legend>Pick a category</legend>
+        <select id="category" v-model="category">
+          <option value="Any Category" selected="selected">Any category</option>
+          <option
+            v-for="category in categoriesList"
+            :key="category.id"
+            :value="category.name"
+          >
+            {{ category.name }}
+          </option>
+        </select>
+      </fieldset>
+
+      <!-- choose difficulty -->
+      <fieldset class="mb-5">
+        <legend>Choose your difficulty level</legend>
+        <input
+          type="radio"
+          id="difficulty"
+          class="m-2"
+          value="Easy"
+          v-model="difficulty"
+          checked="checked"
+        />Easy
+        <input
+          type="radio"
+          id="difficulty"
+          class="m-2"
+          value="Medium"
+          v-model="difficulty"
+        />Medium
+        <input
+          type="radio"
+          id="difficulty"
+          class="m-2"
+          value="Hard"
+          v-model="difficulty"
+        />Hard
+      </fieldset>
+
+      <fieldset class="mb-12">
+        <legend>How many questions would like to answer? Max 50</legend>
+        <input
+          type="text"
+          id="nQuestions"
+          placeholder="E.g. 15"
+          class="m-1 border border-cyan-600 rounded"
+          v-model="numberOfQuestions"
+        />
+      </fieldset>
+
+      <button
+        @click="submitUser"
+        class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
+      >
+        Start Trivia Game
+      </button>
+    </form>
+
+    <p>
+      {{ username }} - {{ category }} - {{ difficulty }} -
+      {{ numberOfQuestions }}
+    </p>
+  </main>
 </template>
 
 <style></style>
