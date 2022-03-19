@@ -7,8 +7,8 @@ import { getCategories } from "../../utils/questions-api";
 let categoriesList = ref([]);
 const username = ref("");
 const numberOfQuestions = ref("");
-const difficulty = ref("");
-const category = ref("");
+const difficulty = ref("Easy");
+const category = ref("Any Category");
 
 onBeforeMount(() => {
   getCategories().then((categories) => (categoriesList.value = categories));
