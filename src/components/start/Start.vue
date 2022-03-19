@@ -79,23 +79,58 @@ const submitUser = async () => {
       </fieldset>
 
       <fieldset class="mb-12">
-        <legend>How many questions would like to answer? Max 50</legend>
+        <legend>How many questions would like to answer?</legend>
+
+
         <input
-          type="text"
+          type="radio"
           id="nQuestions"
-          placeholder="E.g. 15"
-          class="m-1 border border-cyan-600 rounded"
+          class="m-2"
+          value = 10
           v-model="numberOfQuestions"
-        />
+          checked="checked"
+        />10
+
+        <input
+          type="radio"
+          id="nQuestions"
+          class="m-2"
+          value = 20
+          v-model="numberOfQuestions"
+        />20
+
+        <input
+          type="radio"
+          id="nQuestions"
+          class="m-2"
+          value = 30
+          v-model="numberOfQuestions"
+        />30
+
+        <input
+          type="radio"
+          id="nQuestions"
+          class="m-2"
+          value = 40
+          v-model="numberOfQuestions"
+        />40
+
+        <input
+          type="radio"
+          id="nQuestions"
+          class="m-2"
+          value = 50
+          v-model="numberOfQuestions"
+        />50
+
       </fieldset>
 
       <button class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900">
         Start Trivia Game
       </button>
     </form>
-    <p>
-      {{ username }} - {{ category }} - {{ difficulty }} -
-      {{ numberOfQuestions }}
+    <p class="m-1">
+      {{ category }} - {{ difficulty }} - {{ numberOfQuestions }}
     </p>
   </main>
 </template>
