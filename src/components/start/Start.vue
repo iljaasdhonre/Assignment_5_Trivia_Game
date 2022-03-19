@@ -1,39 +1,32 @@
 <script setup>
+import { checkUserName } from "../../utils/user-api";
 import { ref } from "vue";
-import { apiUserRegister } from "../utils/users";
+import { onBeforeMount } from "@vue/runtime-core";
+import { getCategories } from "../../utils/questions-api";
 
-
+let categoriesList = ref([]);
 const username = ref("");
 const numberOfQuestions = ref("");
 const difficulty = ref("");
 const category = ref("");
-const displayError = ref("");
 
+onBeforeMount(() => {
+  getCategories().then((categories) => (categoriesList.value = categories));
+});
 
-const onSubmit = async () => {
-  const [error, user] = await apiUserRegister(username.value);
-  console.log("ERR", error);
-  console.log("USER", user);
-
-  if (error !== null) {
-    displayError.value = error;
-  } else {
-    console.log("successful");
-  }
+const submitUser = async () => {
+  await checkUserName(username.value);
 };
-
 </script>
 
 <template>
   <main class="container mx-auto">
     <h1 class="mb-3 mt-3 text-2xl">Welcome to the Trivia Game</h1>
 
-    <form @submit.prevent="onSubmit">
+    <form>
       <!-- username field -->
       <fieldset class="mb-3">
-        <label for="username" aria-label="Username" class="block m-1 underline">
-          Username
-        </label>
+        <legend>Username</legend>
         <input
           type="text"
           id="username"
@@ -43,27 +36,24 @@ const onSubmit = async () => {
         />
       </fieldset>
 
-      <!-- category field --> 
+      <!-- category field -->
       <fieldset class="mb-5">
-        <label
-          for="categories"
-          aria-label="Categories"
-          class="block m-1 underline"
-        >
-          Choose your category 
-        </label>
-        <select id="category" v-model="category" > <!-- inserting a default would be nice -->
+        <legend>Pick a category</legend>
+        <select id="category" v-model="category">
           <option value="Any Category" selected="selected">Any category</option>
-          <option value="Science">Science</option>
-          <option value="General Knowledge">General knowledge</option>
+          <option
+            v-for="category in categoriesList"
+            :key="category.id"
+            :value="category.name"
+          >
+            {{ category.name }}
+          </option>
         </select>
       </fieldset>
 
       <!-- choose difficulty -->
       <fieldset class="mb-5">
-        <label class="block m-1 underline"
-          >How difficult should the questions be?</label
-        >
+        <legend>Choose your difficulty level</legend>
         <input
           type="radio"
           id="difficulty"
@@ -89,12 +79,7 @@ const onSubmit = async () => {
       </fieldset>
 
       <fieldset class="mb-12">
-        <label
-          for="numberOfQuestions"
-          aria-label="numberOfQuestions"
-          class="block m-1 underline"
-          >Enter the number of questions you would like to have.</label
-        >
+        <legend>How many questions would like to answer? Max 50</legend>
         <input
           type="text"
           id="nQuestions"
@@ -105,16 +90,12 @@ const onSubmit = async () => {
       </fieldset>
 
       <button
-        type="submit"
+        @click="submitUser"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
       >
         Start Trivia Game
       </button>
     </form>
-    <div v-if="displayError" class="bg-red-500 text-white p-3 m-3">
-      <span class="text-lg">Error</span>
-      <p>{{ displayError }}</p>
-    </div>
 
     <p>
       {{ username }} - {{ category }} - {{ difficulty }} -
