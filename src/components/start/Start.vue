@@ -23,7 +23,7 @@ const submitUser = async () => {
   <main class="container mx-auto">
     <h1 class="mb-3 mt-3 text-2xl">Welcome to the Trivia Game</h1>
 
-    <form>
+    <form @submit.prevent="submitUser">
       <!-- username field -->
       <fieldset class="mb-3">
         <legend>Username</legend>
@@ -89,14 +89,10 @@ const submitUser = async () => {
         />
       </fieldset>
 
-      <button
-        @click="submitUser"
-        class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
-      >
+      <button class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900">
         Start Trivia Game
       </button>
     </form>
-
     <p>
       {{ username }} - {{ category }} - {{ difficulty }} -
       {{ numberOfQuestions }}
