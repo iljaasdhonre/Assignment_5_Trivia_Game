@@ -41,8 +41,8 @@ export function register(username){
     return response.json()
   })
   .then(newUser => {
-    localStorage.setItem('user', newUser[0]);
-    return newUser[0];
+    localStorage.setItem('user', newUser);
+    return newUser;
   })
   .catch(error => {
     console.log(error.message)
