@@ -126,7 +126,6 @@ const submitUser = async () => {
         Start Trivia Game
       </button>
     </form>
-    <p class="m-1">{{ category }} - {{ difficulty }} - {{ numberOfQuestions }}</p>
   </main>
 </template>
 
