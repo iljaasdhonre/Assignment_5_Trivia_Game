@@ -12,10 +12,9 @@ let categories = [];
 }
 
 //Fetch questions based on given parameters
-const apiQuestionsUrl = "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium";
 let questions = [];
 
-export async function getQuestions() {
+export async function getQuestions(apiQuestionsUrl) {
   await fetch(apiQuestionsUrl)
    .then((response) => response.json())
    .then((result) => {
@@ -23,4 +22,3 @@ export async function getQuestions() {
    });
    return questions;
   }
-
