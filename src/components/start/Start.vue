@@ -1,5 +1,4 @@
 <script setup>
-import { checkUserName } from "../../utils/user-api";
 import { ref } from "vue";
 import { onBeforeMount } from "@vue/runtime-core";
 import { getCategories } from "../../utils/questions-api";
@@ -19,10 +18,6 @@ onBeforeMount(async () => {
   await getCategories().then((categories) => (categoriesList.value = categories));
 });
 
-const submitUser = async () => {
-  await checkUserName(username.value);
-};
-
 const getQuestionsUrl = () => {
   const questionsUrl = "https://opentdb.com/api.php";
   let newUrl = "";
@@ -36,14 +31,9 @@ const getQuestionsUrl = () => {
 };
 
 async function begin() {
-  await submitUser();
-
-  const storedUser = localStorage.getItem("user");
+  store.dispatch("checkUserName", username.value);
   store.commit("setQuestionsUrl", getQuestionsUrl());
-  store.commit("setUser", storedUser);
   router.push("questions");
-
-  localStorage.clear();
 }
 </script>
 
