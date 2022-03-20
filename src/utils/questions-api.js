@@ -10,15 +10,3 @@ let categories = [];
     });
     return categories;
 }
-
-//Fetch questions based on given parameters
-let questions = [];
-
-export async function getQuestions(apiQuestionsUrl) {
-  await fetch(apiQuestionsUrl)
-   .then((response) => response.json())
-   .then((result) => {
-    questions = result.results;
-   });
-   return questions;
-  }
