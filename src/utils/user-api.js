@@ -1,18 +1,20 @@
 //Fetch funcions for users
-
 //Check if users exist otherwise register them
 const apiKey = '9c4e656f9d584e5fa37a48b92e8b568f'
 const Base_URL = "https://api-noroff.herokuapp.com/trivia"
+let storedUser;
 
 export async function checkUserName(username){
+
   await fetch(`${Base_URL}?username=${username}`)
       .then(response => response.json())
       .then(results => {
         if(results.length == 0){
-          register(username)
+         return register(username);
         }
         else{
-          console.log("login successful")
+          localStorage.setItem('user', results[0]);
+          return results[0];
         }
       })
       .catch(error => {
@@ -20,7 +22,7 @@ export async function checkUserName(username){
       })
   }
 
-  function register(username){
+export function register(username){
     fetch(`${Base_URL}`, {
       method: 'POST',
       headers: {
@@ -39,7 +41,8 @@ export async function checkUserName(username){
     return response.json()
   })
   .then(newUser => {
-    console.log(newUser)
+    localStorage.setItem('user', newUser[0]);
+    return newUser[0];
   })
   .catch(error => {
     console.log(error.message)
