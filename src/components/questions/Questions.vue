@@ -1,36 +1,30 @@
 <script setup>
 import Question from "./Question.vue";
 import { ref, reactive } from "@vue/reactivity";
-import { getQuestions } from "../../utils/questions-api";
-import { onBeforeMount } from "@vue/runtime-core";
+import { onBeforeMount, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
 const store = useStore();
-
-let currentQuestion = reactive({});
-let questionsList = reactive([]);
+const currentQuestion = computed(() => store.state.questions[0]);
 let counter = ref(0);
 let answers = reactive([]);
 
-onBeforeMount(async () => {
-  await getQuestions()
-    .then((questions) => (questionsList.value = questions))
-    .then(() => (currentQuestion = questionsList.value[0]));
-  //console.log(questionsList);
+onBeforeMount(() => {
+  store.dispatch("getQuestions");
 
-  console.log(currentQuestion);
+  // currentQuestion.value.incorrect_answers.map((incorrect_answers) =>
+  //   answers.push(incorrect_answers)
+  // );
 
-  currentQuestion.incorrect_answers.map((incorrect_answers) =>
-    answers.push(incorrect_answers)
-  );
-
-  console.log(answers);
-  answers.push(currentQuestion.correct_answer);
+  // console.log(answers);
+  // answers.push(currentQuestion.correct_answer);
 });
 </script>
 
 <template>
-  <Question :questionProp="currentQuestion.value" />
+  <main class="m-10">
+    <Question :questionProp="currentQuestion" />
+  </main>
 </template>
 
 <style></style>
