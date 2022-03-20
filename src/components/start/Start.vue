@@ -3,11 +3,16 @@ import { checkUserName } from "../../utils/user-api";
 import { ref } from "vue";
 import { onBeforeMount } from "@vue/runtime-core";
 import { getCategories } from "../../utils/questions-api";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
+const store = useStore();
+const router = useRouter();
 
 let categoriesList = ref([]);
 const username = ref("");
-const numberOfQuestions = ref("");
-const difficulty = ref("Easy");
+const numberOfQuestions = ref("10");
+const difficulty = ref("easy");
 const category = ref("Any Category");
 
 onBeforeMount(async () => {
@@ -17,13 +22,35 @@ onBeforeMount(async () => {
 const submitUser = async () => {
   await checkUserName(username.value);
 };
+
+const getQuestionsUrl = () => {
+  const questionsUrl = "https://opentdb.com/api.php";
+  let newUrl = "";
+
+  if (category.value === "Any Category") {
+    newUrl = `${questionsUrl}?amount=${numberOfQuestions.value}&difficulty=${difficulty.value}`;
+  } else {
+    newUrl = `${questionsUrl}?amount=${numberOfQuestions.value}&category=${category.value}&difficulty=${difficulty.value}`;
+  }
+  return newUrl;
+};
+
+async function begin() {
+  await submitUser();
+  const storedUser = localStorage.getItem("user");
+  store.commit("setQuestionsUrl", getQuestionsUrl());
+  store.commit("setUser", storedUser);
+  console.log(JSON.stringify(storedUser));
+  //router.push("questions");
+  localStorage.clear();
+}
 </script>
 
 <template>
   <main class="container mx-auto">
     <h1 class="mb-3 mt-3 text-2xl">Welcome to the Trivia Game</h1>
 
-    <form @submit.prevent="submitUser">
+    <form @submit.prevent="begin">
       <!-- username field -->
       <fieldset class="mb-3">
         <legend>Username</legend>
@@ -44,7 +71,7 @@ const submitUser = async () => {
           <option
             v-for="category in categoriesList"
             :key="category.id"
-            :value="category.name"
+            :value="category.id"
           >
             {{ category.name }}
           </option>
@@ -58,7 +85,7 @@ const submitUser = async () => {
           type="radio"
           id="difficulty"
           class="m-2"
-          value="Easy"
+          value="easy"
           v-model="difficulty"
           checked="checked"
         />Easy
@@ -66,14 +93,14 @@ const submitUser = async () => {
           type="radio"
           id="difficulty"
           class="m-2"
-          value="Medium"
+          value="medium"
           v-model="difficulty"
         />Medium
         <input
           type="radio"
           id="difficulty"
           class="m-2"
-          value="Hard"
+          value="hard"
           v-model="difficulty"
         />Hard
       </fieldset>

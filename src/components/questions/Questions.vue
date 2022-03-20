@@ -3,6 +3,9 @@ import Question from "./Question.vue";
 import { ref, reactive } from "@vue/reactivity";
 import { getQuestions } from "../../utils/questions-api";
 import { onBeforeMount } from "@vue/runtime-core";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 let currentQuestion = reactive({});
 let questionsList = reactive([]);
