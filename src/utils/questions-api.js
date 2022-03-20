@@ -11,10 +11,6 @@ let categories = [];
     return categories;
 }
 
-/**
- * End fetch categories
- */
-
 //Fetch questions based on given parameters
 const apiQuestionsUrl = "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium";
 let questions = [];
@@ -26,5 +22,5 @@ export async function getQuestions() {
     questions = result.results;
    });
    return questions;
-}
+  }
 
