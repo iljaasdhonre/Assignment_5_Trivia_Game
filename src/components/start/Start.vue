@@ -37,11 +37,12 @@ const getQuestionsUrl = () => {
 
 async function begin() {
   await submitUser();
+
   const storedUser = localStorage.getItem("user");
   store.commit("setQuestionsUrl", getQuestionsUrl());
   store.commit("setUser", storedUser);
-  console.log(JSON.stringify(storedUser));
-  //router.push("questions");
+  router.push("questions");
+
   localStorage.clear();
 }
 </script>
