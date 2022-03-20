@@ -5,6 +5,6 @@ import './index.css'
 import store from './store.js'
 
 createApp(App)
-.use(router)
 .use(store)
+.use(router)
 .mount('#app')

@@ -10,8 +10,8 @@ const numberOfQuestions = ref("");
 const difficulty = ref("Easy");
 const category = ref("Any Category");
 
-onBeforeMount(() => {
-  getCategories().then((categories) => (categoriesList.value = categories));
+onBeforeMount(async () => {
+  await getCategories().then((categories) => (categoriesList.value = categories));
 });
 
 const submitUser = async () => {
