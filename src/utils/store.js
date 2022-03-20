@@ -15,9 +15,13 @@ const store = createStore({
         },
         setQuestionsUrl: (state, payload) => {
             state.questionsUrl = payload;
+        },
+        setQuestions: (state, payload) => {
+            state.questions = payload;
         }
     },
     actions:{
+
         async checkUserName({commit, dispatch}, username){
             return fetch(`${Base_URL}?username=${username}`)
                 .then(response => response.json())
@@ -32,34 +36,44 @@ const store = createStore({
                 .catch(error => {
                   console.log(error.message)
                 })
-            }
+            },
+
+            async register({commit},username){
+                return fetch(`${Base_URL}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-API-Key': apiKey,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        username: username, 
+                        highScore: 0 
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Could not create new user')
+                    }
+                    return response.json()
+                })
+                .then(newUser => {
+                    commit("setUser", newUser);
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+            },
+    
+            async getQuestions({commit, state}) {
+                return fetch(state.questionsUrl)
+                 .then((response) => response.json())
+                 .then((questions) => {
+                  commit("setQuestions", questions.results)
+                 });
+                }
 
     },
-        async register({commit},username){
-            return fetch(`${Base_URL}`, {
-                method: 'POST',
-                headers: {
-                    'X-API-Key': apiKey,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    username: username, 
-                    highScore: 0 
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                throw new Error('Could not create new user')
-                }
-                return response.json()
-            })
-            .then(newUser => {
-                commit("setUser", newUser);
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
-        }
+        
 })
 
 export default store;
