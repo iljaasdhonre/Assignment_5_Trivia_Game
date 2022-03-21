@@ -24,8 +24,14 @@ const store = createStore({
         setUserAnswers: (state, payload) => {
             state.userAnswers.push(payload);
         },
+        reSetUserAnswers:(state, payload) => {
+            state.userAnswers = payload;
+        },
         setScore: (state, payload) => {
             state.score += payload;
+        },
+        reSetScore: (state, payload) => {
+            state.score = payload;
         }
     },
     actions:{

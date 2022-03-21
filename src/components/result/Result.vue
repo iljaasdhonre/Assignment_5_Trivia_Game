@@ -8,20 +8,30 @@ const store = useStore();
 const router = useRouter();
 
 const questions = computed(() => store.state.questions);
-const endGame = () => router.push("/");
-const restartGame = () => router.push("questions");
+
+const resetGame = (action) => {
+  store.commit("reSetScore", 0);
+  store.commit("reSetUserAnswers", []);
+
+  if (action === "end") {
+    store.commit("setQuestionsUrl", "");
+    router.push("/");
+  } else {
+    router.push("questions");
+  }
+};
 </script>
 
 <template>
   <Summary :questionsProp="questions" />
   <button
-    @click="endGame"
+    @click="resetGame('end')"
     class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
   >
     End
   </button>
   <button
-    @click="restartGame"
+    @click="resetGame('restart')"
     class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
   >
     Try Again
