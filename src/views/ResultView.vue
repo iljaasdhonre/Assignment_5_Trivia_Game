@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import Result from "../components/result/Result.vue";
+</script>
 
 <template>
-  <h1>Result</h1>
+  <Result />
 </template>
 
 <style></style>
