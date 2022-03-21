@@ -8,9 +8,14 @@ const store = useStore();
 const router = useRouter();
 
 const questions = computed(() => store.state.userAnswers);
+const user = store.state.user;
 const score = computed(() => store.state.score);
 
 const resetGame = (action) => {
+  if (!score.value <= user[0].highScore) {
+    store.dispatch("updateHighScore", score.value);
+  }
+
   store.commit("reSetScore", 0);
   store.commit("reSetUserAnswers", []);
 
