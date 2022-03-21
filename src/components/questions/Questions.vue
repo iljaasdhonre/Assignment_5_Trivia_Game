@@ -7,9 +7,9 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const store = useStore();
-let currentQuestion = computed(() => store.state.questions[counter.value]);
-let counter = ref(0);
-let incorrectAnswers = computed(
+const currentQuestion = computed(() => store.state.questions[counter.value]);
+const counter = ref(0);
+const incorrectAnswers = computed(
   () => store.state.questions[counter.value].incorrect_answers
 );
 
@@ -27,7 +27,6 @@ const increaseCounter = () => {
 
 function saveAnswer(value) {
   store.dispatch("addAnswer", [currentQuestion.value, value]);
-  console.log(value);
   if (value === currentQuestion.value.correct_answer) {
     store.dispatch("updateScore");
   }
@@ -38,7 +37,7 @@ function saveAnswer(value) {
 <template>
   <main class="m-10">
     <Question :questionProp="currentQuestion" />
-    <div v-if="currentQuestion.type === 'multiple'">
+    <div v-show="currentQuestion.type === 'multiple'">
       <button
         @click="saveAnswer(answer)"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
@@ -57,7 +56,7 @@ function saveAnswer(value) {
       </button>
     </div>
 
-    <div v-if="currentQuestion.type === 'boolean'">
+    <div v-show="currentQuestion.type === 'boolean'">
       <button
         @click="saveAnswer('True')"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
