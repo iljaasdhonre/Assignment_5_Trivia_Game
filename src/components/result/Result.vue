@@ -1,18 +1,22 @@
 <script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed } from "@vue/runtime-core";
+import { computed, onBeforeMount } from "@vue/runtime-core";
 import Summary from "./Summary.vue";
 
 const store = useStore();
 const router = useRouter();
 
 const questions = computed(() => store.state.userAnswers);
-const user = store.state.user;
+let user;
 const score = computed(() => store.state.score);
 
+onBeforeMount(() => {
+  user = store.state.user;
+});
+
 const resetGame = (action) => {
-  if (!score.value <= user[0].highScore) {
+  if (score.value > user[0].highScore.value) {
     store.dispatch("updateHighScore", score.value);
   }
 
