@@ -7,7 +7,9 @@ const store = createStore({
     state: {
         questionsUrl: "",
         user: [],
-        questions: []
+        questions: [],
+        userAnswers: [],
+        score: 0
     },
     mutations:{
         setUser: (state, payload) => {
@@ -18,9 +20,23 @@ const store = createStore({
         },
         setQuestions: (state, payload) => {
             state.questions = payload;
+        },
+        setUserAnswers: (state, payload) => {
+            state.userAnswers.push(payload);
+        },
+        setScore: (state, payload) => {
+            state.score += payload;
         }
     },
     actions:{
+
+        updateScore({commit}){
+            commit("setScore", 10);
+        },
+
+        addAnswer({commit}, [question, answer]){
+            commit("setUserAnswers", {answeredQuestion: question, answer: answer});
+        },
 
         async checkUserName({commit, dispatch}, username){
             return fetch(`${Base_URL}?username=${username}`)
