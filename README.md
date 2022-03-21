@@ -30,6 +30,10 @@ Trivia Game is a knowledge based game which you can play by answering questions,
 - By clicking the 'Try again' button you will get new questions within the same category and difficulty level as the previous round.
 - ENJOY!
 
+## Collaborators
+- Mohammed El Maghauwry
+- Iljaas Dhonre
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
