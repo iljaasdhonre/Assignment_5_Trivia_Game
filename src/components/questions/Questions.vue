@@ -24,6 +24,15 @@ const increaseCounter = () => {
     counter.value += 1;
   }
 };
+
+function saveAnswer(value) {
+  store.dispatch("addAnswer", [currentQuestion.value, value]);
+  console.log(value);
+  if (value === currentQuestion.value.correct_answer) {
+    store.dispatch("updateScore");
+  }
+  increaseCounter();
+}
 </script>
 
 <template>
@@ -31,7 +40,7 @@ const increaseCounter = () => {
     <Question :questionProp="currentQuestion" />
     <div v-if="currentQuestion.type === 'multiple'">
       <button
-        @click="increaseCounter"
+        @click="saveAnswer(answer)"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
         v-for="(answer, index) in incorrectAnswers"
         :key="index"
@@ -40,7 +49,7 @@ const increaseCounter = () => {
         {{ answer }}
       </button>
       <button
-        @click="increaseCounter"
+        @click="saveAnswer(currentQuestion.correct_answer)"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
         :value="currentQuestion.correct_answer"
       >
@@ -50,20 +59,20 @@ const increaseCounter = () => {
 
     <div v-if="currentQuestion.type === 'boolean'">
       <button
-        @click="increaseCounter"
+        @click="saveAnswer('True')"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
         v-for="(answer, index) in incorrectAnswers"
         :key="index"
-        :value="answer"
+        :value="true"
       >
-        {{ answer }}
+        True
       </button>
       <button
-        @click="increaseCounter"
+        @click="saveAnswer('False')"
         class="bg-cyan-600 text-white p-3 rounded border-4 border-gray-900"
-        :value="currentQuestion.correct_answer"
+        :value="false"
       >
-        {{ currentQuestion.correct_answer }}
+        False
       </button>
     </div>
   </main>
