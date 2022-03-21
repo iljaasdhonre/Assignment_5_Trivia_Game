@@ -3,18 +3,25 @@ const props = defineProps({ questionsProp: Array });
 </script>
 
 <template>
-  <h1>Summary</h1>
-  <table aria-label="summary-table">
-    <tr>
-      <th>Question</th>
-      <th>Correct answer</th>
-      <th>Your answer</th>
-    </tr>
-    <tr v-for="(question, index) in questionsProp" :key="index">
-      <td>{{ question.question }}</td>
-      <td>{{ question.correct_answer }}</td>
-    </tr>
-  </table>
+  <main class="container">
+    <table
+      class="table-auto border-collapse border border-slate-500"
+      aria-label="summary-table"
+    >
+      <tr>
+        <th class="border border-slate-500">Question</th>
+        <th class="border border-slate-500">Correct answer</th>
+        <th class="border border-slate-500">Your answer</th>
+      </tr>
+      <tr v-for="(question, index) in questionsProp" :key="index">
+        <td class="border border-slate-400">{{ question.answeredQuestion.question }}</td>
+        <td class="border border-slate-400">
+          {{ question.answeredQuestion.correct_answer }}
+        </td>
+        <td class="border border-slate-400">{{ question.answer }}</td>
+      </tr>
+    </table>
+  </main>
 </template>
 
 <style></style>
