@@ -17,7 +17,7 @@ Trivia Game is a knowledge based game which you can play by answering questions,
 
 -OR-
 
-- Or any computer with an internetconnection and click on the link on top of this document.
+- Any computer with an internetconnection and click on the link on top of this document.
 
 ## Usage
 
