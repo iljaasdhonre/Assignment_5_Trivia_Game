@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps([{ questionsProp: Array }]);
+const props = defineProps({ questionsProp: Array });
 </script>
 
 <template>
