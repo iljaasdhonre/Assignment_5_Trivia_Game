@@ -27,7 +27,7 @@ const store = createStore({
                 .then(response => response.json())
                 .then(user => {
                   if(user.length == 0){
-                   dispatch("register", user);
+                   dispatch("register", username);
                   }
                   else{
                     commit("setUser", user)

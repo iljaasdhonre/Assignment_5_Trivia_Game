@@ -4,7 +4,6 @@ const props = defineProps({ questionProp: Object });
 
 <template>
   <h5>{{ questionProp.question }}</h5>
-  <h5>{{ questionProp.type }}</h5>
 </template>
 
 <style></style>
