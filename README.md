@@ -1,7 +1,6 @@
 # Assignment_5_Trivia_Game
 
-
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[![web](https://img.shields.io/static/v1?logo=heroku&message=Online&label=Heroku&color=430098)](https://assignment-5-trivia-game.herokuapp.com/)
 
 ## Recommended IDE Setup
 
