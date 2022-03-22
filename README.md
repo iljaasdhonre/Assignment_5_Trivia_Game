@@ -31,7 +31,7 @@ Trivia Game is a knowledge based game which you can play by answering questions,
 - ENJOY!
 
 ## Collaborators
-- Mohammed El Maghauwry
+- Mohammed El Maghawry
 - Iljaas Dhonre
 
 ## Contributing
