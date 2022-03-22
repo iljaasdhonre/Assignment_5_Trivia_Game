@@ -52,7 +52,7 @@ const store = createStore({
                    dispatch("register", username);
                   }
                   else{
-                    commit("setUser", user)
+                    commit("setUser", user[0])
                   }
                 })
                 .catch(error => {
