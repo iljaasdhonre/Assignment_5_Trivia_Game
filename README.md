@@ -30,7 +30,7 @@ Trivia Game is a knowledge based game which you can play by answering questions,
 - By clicking the 'Try again' button you will get new questions within the same category and difficulty level as the previous round.
 - ENJOY!
 
-## Collaborators
+## Contributors
 - Mohammed El Maghawry
 - Iljaas Dhonre
 
