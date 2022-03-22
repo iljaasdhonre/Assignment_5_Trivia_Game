@@ -16,7 +16,7 @@ onBeforeMount(() => {
 });
 
 const resetGame = (action) => {
-  if (score.value > user[0].highScore.value) {
+  if (score.value > parseInt(user.highScore)) {
     store.dispatch("updateHighScore", score.value);
   }
 

@@ -87,7 +87,7 @@ const store = createStore({
             },
 
             async updateHighScore({commit, state}, score){
-                fetch(`${Base_URL}/${state.user[0].id}`, {
+                fetch(`${Base_URL}/${state.user.id}`, {
                     method: 'PATCH', // NB: Set method to PATCH
                     headers: {
                         'X-API-Key': apiKey,
